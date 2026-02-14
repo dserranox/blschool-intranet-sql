@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ar.com.claro</groupId>
+    <artifactId>blschool-intranet-sql</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <confirmacion.remoto>false</confirmacion.remoto>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <liquibase.context>local</liquibase.context>
+                <db.hostname>localhost</db.hostname>
+                <db.port>5432</db.port>
+                <db.database>blschooldb</db.database>
+                <db.username>blschooladmin</db.username>
+                <db.password>blschooladmin</db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <liquibase.context>prod</liquibase.context>
+                <db.hostname>1.1.1.139</db.hostname>
+                <db.port>5324</db.port>
+                <db.database></db.database>
+                <db.username></db.username>
+                <db.password></db.password>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>changelogs</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.28.0</version>
+                <configuration>
+                    <changeLogFile>changelogs/db.changelog-master.xml</changeLogFile>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://${db.hostname}:${db.port}/${db.database}</url>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
+                    <contexts>${liquibase.context}</contexts>
+                    <promptOnNonLocalDatabase>${confirmacion.remoto}</promptOnNonLocalDatabase>
+                    <logLevel>info</logLevel>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+    </dependencies>
+
+</project>
