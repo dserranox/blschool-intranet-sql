@@ -5,7 +5,7 @@ Este proyecto contiene una configuración base para gestionar la evolución de e
 ## Estructura
 
 ```
-axum-sql/
+blschool-intranet-sql/
 ├── changelogs/
 ├── pom.xml
 ├── docker-compose.yml
