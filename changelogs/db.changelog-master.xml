@@ -8,4 +8,6 @@
     <include file="create/20260214_login.sql" relativeToChangelogFile="true"/>
     <include file="create/20260215_cursos_comisiones.sql" relativeToChangelogFile="true"/>
     <include file="create/20261009_preinscripciones.sql" relativeToChangelogFile="true"/>
+    <include file="create/20261011_calificaciones.sql" relativeToChangelogFile="true"/>
+    <include file="create/20261012_auditoria.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
